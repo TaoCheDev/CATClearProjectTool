@@ -13,6 +13,7 @@
 
 @property (weak) IBOutlet NSTextField *txtPath;
 @property (unsafe_unretained) IBOutlet NSTextView *txtResult;
+@property (unsafe_unretained) IBOutlet NSTextView *txtSaveFilter;
 @property (unsafe_unretained) IBOutlet NSTextView *txtFilter;
 
 @property (nonatomic,strong) CATClearProjectTool* clearProjectTool;
@@ -24,6 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.clearProjectTool.delegate = self;
+    
+    self.txtSaveFilter.string = @".*Manager$,.*VC$,.*Controller$,.*Model$,.*Node$,.*Protocol$,.*Render$";
+    self.txtFilter.string = @"^Target_.*,^CW.*";
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -33,32 +37,32 @@
 #pragma mark -- UIResponder
 
 - (IBAction)searchButtonClicked:(id)sender {
-    if (_txtPath.stringValue.length < 1) {
-        return;
-    }
-    
-    _txtResult.string = @"Searching all classes...";
+    _txtResult.string = @"搜索中...";
+    self.clearProjectTool.saveRegex = self.txtSaveFilter.string;
+    self.clearProjectTool.unSaveRegex = self.txtFilter.string;
     [self.clearProjectTool startSearchWithXcodeprojFilePath:_txtPath.stringValue];
 }
 
 - (IBAction)clearButtonClicked:(id)sender {
-    [self _addFilter];
     [self.clearProjectTool clearFileAndMetaData];
 }
 
 #pragma mark -- CATClearProjectToolDelegate
 
 -(void)searchAllClassesSuccess:(NSMutableDictionary *)dic{
-    NSString* msg = @"Successfully searched all classes:\n";
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _txtResult.string = [msg stringByAppendingString:[self _getClassNamesFromDic:dic]];
-    });
+//    NSString* msg = @"Successfully searched all classes:\n";
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        _txtResult.string = [msg stringByAppendingString:[self _getClassNamesFromDic:dic]];
+//    });
 }
 
 -(void)searchUnUsedClassesSuccess:(NSMutableDictionary *)dic{
-    NSString* msg = @"Successfully searched unused classes:\n";
     dispatch_async(dispatch_get_main_queue(), ^{
-        _txtResult.string = [msg stringByAppendingString:[self _getClassNamesFromDic:dic]];
+        NSString *str = [self _getClassNamesFromDic:dic];
+        if (str.length > 0) {
+            str = [str substringFromIndex:1];
+        }
+        _txtResult.string = str.length > 0 ? str : @"很干净";
     });
 }
 
@@ -78,18 +82,6 @@
         classNames = [classNames stringByAppendingString:[NSString stringWithFormat:@"\n%@",className]];
     }
     return classNames;
-}
-
--(void)_addFilter{
-    NSString* strFilter = [NSString stringWithString:_txtFilter.string];
-    if (strFilter && strFilter.length > 0) {
-        if ([strFilter containsString:@","]) {
-            NSArray* array = [strFilter componentsSeparatedByString:@","];
-            [_clearProjectTool setFliterClasses:array];
-        }else{
-            [_clearProjectTool setFliterClasses:[NSArray arrayWithObject:strFilter]];
-        }
-    }
 }
 
 #pragma mark -- properties

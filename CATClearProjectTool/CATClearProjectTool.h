@@ -26,6 +26,8 @@
 
 @property (nonatomic,weak) id<CATClearProjectToolDelegate> delegate;
 
+@property (nonatomic, copy) NSString *saveRegex; /**< 保留的正则 */
+@property (nonatomic, copy) NSString *unSaveRegex; /**< 移除的正则 */
 
 /**
  *  set filter classes. 

@@ -65,6 +65,15 @@
  *  @param path  .xcodeproj file path
  */
 -(void)startSearchWithXcodeprojFilePath:(NSString *)path{
+    
+    [_allClasses removeAllObjects];
+    [_unUsedClasses removeAllObjects];
+    [_usedClasses removeAllObjects];
+    [_fliterClasses removeAllObjects];
+    
+    #warning 张鑫测试
+    path = @"/Users/zhxin/work/iOS/MarsCarWorkspace/MarsCar/MarsCar.xcodeproj";
+    
     if(!path || ![path hasSuffix:@".xcodeproj"]){
         NSError* error = [NSError errorWithDomain:@"please input correct xcodeproj path!" code:-1 userInfo:nil];
         NSAlert* alert = [NSAlert alertWithError:error];
@@ -107,10 +116,68 @@
             [_unUsedClasses removeObjectForKey:key];
         }
         
+        /// 忽略匹配上的正则表达式
+        [self _removeFilterClassesOfSearch];
+        /// 只保留匹配上的正则表达式
+        [self _onlySaveFilterClassesOfSearch];
+        
         if (_delegate && [_delegate respondsToSelector:@selector(searchUnUsedClassesSuccess:)]) {
             [_delegate searchUnUsedClassesSuccess:_unUsedClasses];
         }
     });
+}
+
+/** 搜索时过滤条件 */
+- (void)_removeFilterClassesOfSearch {
+    NSString *regexStr = self.unSaveRegex;
+    if (regexStr.length == 0) {
+        return;
+    }
+    NSArray *regexs = [regexStr componentsSeparatedByString:@","];
+    for (int i = 0; i < regexs.count; i++) {
+        NSString *regex = regexs[i];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+        NSMutableArray *array = [NSMutableArray array];
+        for (int j = 0; j < _unUsedClasses.allKeys.count; j++) {
+            NSString *aClass = _unUsedClasses.allKeys[j];
+            BOOL pass = [predicate evaluateWithObject:aClass];
+            if (pass) {
+                [array addObject:aClass];
+            }
+        }
+        for (NSString *key in array) {
+            [_unUsedClasses removeObjectForKey:key];
+        }
+    }
+}
+
+/// 只保留匹配上正则表达式的类
+- (void)_onlySaveFilterClassesOfSearch {
+    NSString *regexStr = self.saveRegex;
+    if (regexStr.length == 0) {
+        return;
+    }
+    NSArray *regexs = [regexStr componentsSeparatedByString:@","];
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (int i = 0; i < regexs.count; i++) {
+        NSString *regex = regexs[i];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+       
+        for (int j = 0; j < _unUsedClasses.allKeys.count; j++) {
+            NSString *aClass = _unUsedClasses.allKeys[j];
+            BOOL pass = [predicate evaluateWithObject:aClass];
+            if (pass) {
+                [array addObject:aClass];
+            }
+        }
+    }
+    
+    NSMutableDictionary *newUnUsedClasses = [NSMutableDictionary dictionary];
+    for (NSString *key in array) {
+        [newUnUsedClasses setObject:_unUsedClasses[key] forKey:key];
+    }
+    _unUsedClasses = newUnUsedClasses;
 }
 
 -(void)_removeFilterClasses {
