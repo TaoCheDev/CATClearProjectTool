@@ -16,6 +16,9 @@
 @property (unsafe_unretained) IBOutlet NSTextView *txtSaveFilter;
 @property (unsafe_unretained) IBOutlet NSTextView *txtFilter;
 
+@property (nonatomic, copy) NSString *saveFilterValue; /**< 保存文件初始值 */
+@property (nonatomic, copy) NSString *unSaveFilterValue; /**< 不保存文件初始值 */
+
 @property (nonatomic,strong) CATClearProjectTool* clearProjectTool;
 
 @end
@@ -26,8 +29,11 @@
     [super viewDidLoad];
     self.clearProjectTool.delegate = self;
     
-    self.txtSaveFilter.string = @".*Manager$,.*VC$,.*Controller$,.*Model$,.*Node$,.*Protocol$,.*Render$";
-    self.txtFilter.string = @"^Target_.*,^CW.*";
+    self.saveFilterValue = @"";
+    self.unSaveFilterValue = @"^Target_.*,MarsCar-Bridging-Header,GPUImageMovieComposition,GPUImageFramework,GPUImageFASTCornerDetectionFilter,HooDatePicker";
+    
+    self.txtSaveFilter.string = self.saveFilterValue;
+    self.txtFilter.string = self.unSaveFilterValue;
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -43,8 +49,14 @@
     
     NSString *path = _txtPath.stringValue;
     #warning 张鑫测试
-//    path = @"/Users/zhxin/work/iOS/MarsCarWorkspace/MarsCar/MarsCar.xcodeproj";
+    path = @"/Users/zhxin/work/iOS/MarsCarWorkspace/MarsCar/MarsCar.xcodeproj";
     [self.clearProjectTool startSearchWithXcodeprojFilePath:path];
+}
+
+- (IBAction)resetButtonClicked:(id)sender {
+    _txtResult.string = @"";
+    self.txtSaveFilter.string = self.saveFilterValue;
+    self.txtFilter.string = self.unSaveFilterValue;
 }
 
 - (IBAction)clearButtonClicked:(id)sender {

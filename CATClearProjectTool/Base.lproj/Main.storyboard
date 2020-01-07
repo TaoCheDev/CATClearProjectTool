@@ -683,7 +683,7 @@
                                     <constraint firstAttribute="height" constant="22" id="rLD-Kx-k11"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="输入或拖动.xcodeproj文件到这里！" drawsBackground="YES" id="wBC-Dz-7NF">
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -695,7 +695,7 @@
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="搜索" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qZ5-Ji-7eN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="searchButtonClicked:" target="XfG-lQ-9wD" id="Ndw-08-WXD"/>
@@ -708,7 +708,7 @@
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="删除" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="buG-pV-ev5">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="clearButtonClicked:" target="XfG-lQ-9wD" id="l1S-nm-rXO"/>
@@ -749,7 +749,7 @@
                                     <constraint firstAttribute="height" constant="20" id="qHc-pM-Rd6"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="过滤文件的正则表达式，使用英文逗号分隔" id="0ey-ZS-3gd">
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -789,7 +789,7 @@
                                     <constraint firstAttribute="height" constant="20" id="vUK-AD-fhr"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="保留结果文件的正则表达式，使用英文逗号分隔" id="goJ-4N-kSu">
-                                    <font key="font" metaFont="label" size="13"/>
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -839,6 +839,19 @@
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="logo" id="IZ3-p3-gFh"/>
                             </imageView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Rc-Bf-9rl">
+                                <rect key="frame" x="346" y="503" width="67" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="tNw-7f-JZu"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="重置" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tYw-dg-0IA">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="resetButtonClicked:" target="XfG-lQ-9wD" id="qHq-0J-yyV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="DYM-8e-SKy" secondAttribute="trailing" constant="15" id="0GU-DU-7lP"/>
@@ -846,6 +859,7 @@
                             <constraint firstItem="btR-oI-myd" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="15" id="1DS-GF-vA1"/>
                             <constraint firstItem="DYM-8e-SKy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="15" id="6HA-go-gWH"/>
                             <constraint firstAttribute="trailing" secondItem="btR-oI-myd" secondAttribute="trailing" constant="15" id="9gF-Wb-PDb"/>
+                            <constraint firstItem="5Rc-Bf-9rl" firstAttribute="top" secondItem="btR-oI-myd" secondAttribute="bottom" constant="15" id="AQF-1e-swy"/>
                             <constraint firstItem="ihE-KT-vCW" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="15" id="AeC-16-Kx2"/>
                             <constraint firstItem="btR-oI-myd" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="80" id="BST-Al-F3J"/>
                             <constraint firstAttribute="trailing" secondItem="7Qe-ZJ-syF" secondAttribute="trailing" constant="15" id="EC8-ad-bwB"/>
@@ -858,6 +872,7 @@
                             <constraint firstItem="Nzn-R2-9KK" firstAttribute="top" secondItem="btR-oI-myd" secondAttribute="bottom" constant="15" id="V53-bG-ql1"/>
                             <constraint firstItem="Nzn-R2-9KK" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="VKi-iQ-lgu"/>
                             <constraint firstItem="7Qe-ZJ-syF" firstAttribute="top" secondItem="nx4-s2-nnx" secondAttribute="bottom" constant="10" id="XpN-d1-tP7"/>
+                            <constraint firstItem="5Rc-Bf-9rl" firstAttribute="leading" secondItem="Nzn-R2-9KK" secondAttribute="trailing" constant="12" id="aFN-y7-AYL"/>
                             <constraint firstItem="nx4-s2-nnx" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="15" id="aqD-ul-kAm"/>
                             <constraint firstItem="XeC-JQ-zyQ" firstAttribute="top" secondItem="btR-oI-myd" secondAttribute="bottom" constant="20" id="iSq-jH-DX4"/>
                             <constraint firstItem="Nzn-R2-9KK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XeC-JQ-zyQ" secondAttribute="trailing" constant="8" symbolic="YES" id="jFQ-1M-reS"/>
