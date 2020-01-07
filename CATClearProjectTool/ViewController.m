@@ -40,6 +40,10 @@
     _txtResult.string = @"搜索中...";
     self.clearProjectTool.saveRegex = self.txtSaveFilter.string;
     self.clearProjectTool.unSaveRegex = self.txtFilter.string;
+    
+    NSString *path = _txtPath.stringValue;
+    #warning 张鑫测试
+//    path = @"/Users/zhxin/work/iOS/MarsCarWorkspace/MarsCar/MarsCar.xcodeproj";
     [self.clearProjectTool startSearchWithXcodeprojFilePath:_txtPath.stringValue];
 }
 
