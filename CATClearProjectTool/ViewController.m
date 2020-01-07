@@ -44,7 +44,7 @@
     NSString *path = _txtPath.stringValue;
     #warning 张鑫测试
 //    path = @"/Users/zhxin/work/iOS/MarsCarWorkspace/MarsCar/MarsCar.xcodeproj";
-    [self.clearProjectTool startSearchWithXcodeprojFilePath:_txtPath.stringValue];
+    [self.clearProjectTool startSearchWithXcodeprojFilePath:path];
 }
 
 - (IBAction)clearButtonClicked:(id)sender {
@@ -71,7 +71,7 @@
 }
 
 -(void)clearUnUsedClassesSuccess:(NSMutableDictionary *)dic{
-    NSString* msg = @"Successfully clear unused classes:\n";
+    NSString* msg = @"删除成功！ 已删除列表:\n";
     dispatch_async(dispatch_get_main_queue(), ^{
         _txtResult.string = [msg stringByAppendingString:[self _getClassNamesFromDic:dic]];
     });
