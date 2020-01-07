@@ -71,9 +71,6 @@
     [_usedClasses removeAllObjects];
     [_fliterClasses removeAllObjects];
     
-    #warning 张鑫测试
-    path = @"/Users/zhxin/work/iOS/MarsCarWorkspace/MarsCar/MarsCar.xcodeproj";
-    
     if(!path || ![path hasSuffix:@".xcodeproj"]){
         NSError* error = [NSError errorWithDomain:@"please input correct xcodeproj path!" code:-1 userInfo:nil];
         NSAlert* alert = [NSAlert alertWithError:error];
